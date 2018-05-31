@@ -36,11 +36,11 @@
             <el-container>
                 <el-aside width="200px">
                     <el-menu
-                        default-active="2"
-                        class="el-menu-vertical-demo"
-                        background-color="#545c64"
-                        text-color="#fff"
-                        active-text-color="#ffd04b">
+                            default-active="2"
+                            class="el-menu-vertical-demo"
+                            background-color="#545c64"
+                            text-color="#fff"
+                            active-text-color="#ffd04b">
                         <el-submenu index="1">
                             <template slot="title">
                                 <i class="el-icon-location"></i>
@@ -48,7 +48,9 @@
                             </template>
                             <el-menu-item-group>
                                 <template slot="title">分组一</template>
-                                <el-menu-item index="1-1">选项1</el-menu-item>
+                                <el-menu-item index="1-1">
+                                    选项1
+                                </el-menu-item>
                                 <el-menu-item index="1-2">选项2</el-menu-item>
                             </el-menu-item-group>
                             <el-menu-item-group title="分组2">
@@ -69,31 +71,46 @@
                         </el-menu-item>
                         <el-menu-item index="4">
                             <i class="el-icon-setting"></i>
-                            <span slot="title">导航四</span>
+                            <span slot="title" v-on:click="greet">导航四</span>
                         </el-menu-item>
                     </el-menu>
                 </el-aside>
-                <el-main><home></home></el-main>
+                <el-main>
+                    <!--<p>-->
+                        <!--<span v-on:click="greet"><router-link to="/foo">Go to Foo</router-link></span>-->
+                        <!--<router-link to="/bar">Go to Bar</router-link>-->
+                    <!--</p>-->
+                    <transition name="el-fade-in">
+                        <!-- 路由匹配到的组件将渲染在这里 -->
+                        <router-view></router-view>
+                    </transition>
+                </el-main>
             </el-container>
         </el-container>
     </div>
 </template>
 
 <script>
-    import Home from './home/Home'
+    import Home from './components/Home'
+    import HomeDetail from './components/HomeDetail'
 
     export default {
         name: 'app',
         components: {
-            Home
+            Home,
+            HomeDetail
         },
         data() {
             return {
                 activeIndex: '1',
-                activeIndex2: '2'
+                activeIndex2: '2',
             };
         },
-        method: {}
+        methods: {
+            greet: function () {
+                this.$router.push({path: 'home'})
+            }
+        }
     }
 </script>
 
@@ -108,7 +125,7 @@
     }
 
     #user-center {
-        float:right;
+        float: right;
     }
 
     .nav-logo {
